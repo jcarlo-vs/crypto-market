@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+/* Obsidian Terminal — a deliberately single-theme, dark-committed look.
+   Tokens lifted from the theme study in ../crypto-meter/app/themes. */
+:root {
+  --bg: #070a08;
+  --bg2: #0a100c;
+  --panel: rgba(10, 16, 12, 0.72);
+  --line: rgba(111, 125, 114, 0.2);
+  --line-soft: rgba(111, 125, 114, 0.12);
+  --green: #00ff9d;
+  --green-dim: #0bbf78;
+  --amber: #ffb000;
+  --red: #ff4d4d;
+  --label: #6f7d72;
+  --text: #c4d4c9;
+  --bright: #e8f5ee;
+  --mono: 'Space Mono', ui-monospace, monospace;
+  --body: 'IBM Plex Sans', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 14px;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(1100px 620px at 50% -6%, rgba(0, 255, 157, 0.06), transparent 62%),
+    linear-gradient(180deg, #080c0a 0%, var(--bg) 40%, var(--bg) 100%),
+    var(--bg);
+}
+
+/* fine grid texture, faded at the edges */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(111, 125, 114, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 125, 114, 0.05) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(1200px 800px at 50% 30%, #000 30%, transparent 88%);
+}
+
+.shell {
+  position: relative; z-index: 1;
+  max-width: 1180px; margin: 0 auto;
+  padding-inline: clamp(14px, 2.4vw, 34px);
+  padding-block: 26px 64px;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 1px solid var(--green); outline-offset: 2px;
+}
+
+/* ---------- chrome ---------- */
+.masthead {
+  display: flex; flex-wrap: wrap; gap: 10px 20px;
+  align-items: baseline; justify-content: space-between;
+  border-bottom: 1px solid var(--line); padding-bottom: 16px;
+}
+.wordmark {
+  font-family: var(--mono); font-weight: 700; font-size: 17px;
+  letter-spacing: .06em; color: var(--bright);
+}
+.wordmark b { color: var(--green); font-weight: 700; }
+.meta {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--label);
+}
+.meta .on { color: var(--green-dim); }
+
+.banner {
+  margin-top: 16px; padding: 10px 14px;
+  border: 1px solid rgba(255, 176, 0, .35); background: rgba(255, 176, 0, .07);
+  color: var(--amber); font-family: var(--mono); font-size: 12px;
+}
+.banner.err { border-color: rgba(255, 77, 77, .4); background: rgba(255, 77, 77, .07); color: var(--red); }
+.banner code { background: rgba(0,0,0,.3); padding: 1px 5px; }
+
+/* ---------- panels ---------- */
+.panel {
+  margin-top: 22px; border: 1px solid var(--line);
+  background: var(--panel); backdrop-filter: blur(2px);
+}
+.panel-head {
+  display: flex; flex-wrap: wrap; gap: 10px 16px;
+  align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--line-soft);
+}
+.panel-title {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--label);
+}
+
+.search {
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg2); color: var(--bright);
+  border: 1px solid var(--line); padding: 7px 11px; min-width: 190px;
+}
+.search::placeholder { color: var(--label); }
+
+/* ---------- market table ---------- */
+.tscroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 13px; }
+thead th {
+  position: sticky; top: 0; z-index: 2;
+  background: #0a100c;
+  text-align: right; white-space: nowrap;
+  font-size: 10px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--label); padding: 10px 14px; border-bottom: 1px solid var(--line);
+}
+thead th:nth-child(-n+2) { text-align: left; }
+thead th button {
+  all: unset; cursor: pointer; letter-spacing: inherit; text-transform: inherit;
+  font: inherit; color: inherit;
+}
+thead th button:hover { color: var(--green); }
+thead th[aria-sort] button { color: var(--green); }
+thead th button .car { opacity: .5; margin-left: 4px; }
+
+tbody td { padding: 11px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line-soft); }
+tbody td:nth-child(-n+2) { text-align: left; }
+tbody tr:hover { background: rgba(0, 255, 157, .035); }
+.rank { color: var(--label); font-size: 12px; }
+.cname { color: var(--bright); }
+.csym { color: var(--label); margin-left: 7px; font-size: 11.5px; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.flat { color: var(--label); }
+.empty { padding: 34px 16px; text-align: center; color: var(--label); font-family: var(--mono); font-size: 12.5px; }
+
+/* ---------- coin detail ---------- */
+.crumb { font-family: var(--mono); font-size: 11.5px; color: var(--label); margin-top: 20px; }
+.crumb a:hover { color: var(--green); }
+.coin-head { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; margin-top: 10px; }
+.coin-head h1 { font-family: var(--body); font-weight: 600; font-size: 25px; color: var(--bright); margin: 0; }
+.coin-head .sym { font-family: var(--mono); font-size: 13px; color: var(--label); letter-spacing: .06em; }
+.coin-head .badge {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+  color: var(--label); border: 1px solid var(--line); padding: 2px 7px;
+}
+.bigprice { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; margin-top: 14px; }
+.bigprice .p { font-family: var(--mono); font-size: 32px; color: var(--bright); letter-spacing: -.01em; }
+.bigprice .d { font-family: var(--mono); font-size: 14px; }
+
+.ranges { display: flex; gap: 6px; }
+.ranges a {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+  padding: 5px 10px; border: 1px solid var(--line); color: var(--label);
+}
+.ranges a:hover { color: var(--green); border-color: rgba(0,255,157,.35); }
+.ranges a[aria-current="true"] { color: var(--bg); background: var(--green); border-color: var(--green); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.stats > div { padding: 14px 16px; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+.stats .k { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--label); }
+.stats .v { font-family: var(--mono); font-size: 16px; color: var(--bright); margin-top: 5px; }
+
+.chartwrap { padding: 16px; }
+.nochart { padding: 46px 16px; text-align: center; color: var(--label); font-family: var(--mono); font-size: 12.5px; }
+
+footer {
+  margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 11px; color: var(--label);
+  display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between;
+}
+
+/* ---------- chart ---------- */
+.ch { display: block; width: 100%; height: auto; max-width: 100%; touch-action: none; }
+.ch-grid { stroke: var(--line); stroke-width: 1; }
+.ch-line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.ch-lbl { fill: var(--label); font-family: var(--mono); font-size: 12px; }
+.ch-val { fill: var(--bright); font-family: var(--mono); font-size: 14px; }
+.ch-time { fill: var(--label); font-family: var(--mono); font-size: 11px; }
+.ch-cursor { stroke: var(--bg); stroke-width: 2; }
